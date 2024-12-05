@@ -72,4 +72,4 @@ def part2():
 
 
 # submit(DAY, part1(), 1)
-submit(DAY, part2(), 2)
+# submit(DAY, part2(), 2)
