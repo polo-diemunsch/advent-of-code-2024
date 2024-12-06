@@ -8,3 +8,11 @@ fun ints(s: String) = s.split(" +".toRegex()).map { it.toInt() }
 val DIR4 = listOf(Pair(-1, 0), Pair(0, 1), Pair(1, 0), Pair(0, -1)) // Clockwise URDL
 val DIR8 = listOf(Pair(-1, 0), Pair(-1, 1), Pair(0, 1), Pair(1, 1), Pair(1, 0), Pair(1, -1), Pair(0, -1), Pair(-1, -1)) // Clockwise from U
 val DIRX = listOf(Pair(-1, 1), Pair(1, 1), Pair(1, -1), Pair(-1, -1)) // Clockwise from UL
+
+operator fun Pair<Int, Int>.plus(other: Pair<Int, Int>): Pair<Int, Int> {
+    return Pair(this.first + other.first, this.second + other.second)
+}
+
+operator fun Pair<Int, Int>.minus(other: Pair<Int, Int>): Pair<Int, Int> {
+    return Pair(this.first - other.first, this.second - other.second)
+}
