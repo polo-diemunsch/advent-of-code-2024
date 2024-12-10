@@ -1,3 +1,5 @@
+import kotlin.time.measureTimedValue
+
 fun main() {
     val ls = readInput()
 
@@ -37,6 +39,6 @@ fun main() {
         return ans
     }
 
-    println(part1())
-    println(part2())
+    println(measureTimedValue { part1() }.let { "${it.value} (${it.duration})" })
+    println(measureTimedValue { part2() }.let { "${it.value} (${it.duration})" })
 }

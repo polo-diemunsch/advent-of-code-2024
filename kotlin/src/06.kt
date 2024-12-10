@@ -1,3 +1,5 @@
+import kotlin.time.measureTimedValue
+
 fun main() {
     val ls = readInput().map { it.toCharArray() }
     val n = ls.size
@@ -11,8 +13,8 @@ fun main() {
         var d = 0
         var nextPos = pos + DIR4[d]
 
-        val visited: MutableSet<Pair<Int, Int>> = mutableSetOf(pos)
-        while (nextPos.first in 0..<n && nextPos.second in 0..<m) {
+        val visited = mutableSetOf(pos)
+        while (nextPos.first in 0 ..< n && nextPos.second in 0 ..< m) {
             if (ls[nextPos.first][nextPos.second] == '#') {
                 d = (d + 1) % DIR4.size
             }
@@ -36,8 +38,8 @@ fun main() {
         var sidePos = pos + DIR4[(d + DIR4.size - 1) % DIR4.size]
 
         // Backward
-        val visited: MutableSet<Pair<Pair<Int, Int>, Int>> = mutableSetOf(Pair(pos, d))
-        while (nextPos.first in 0..<n && nextPos.second in 0..<m) {
+        val visited = mutableSetOf(Pair(pos, d))
+        while (nextPos.first in 0 ..< n && nextPos.second in 0 ..< m) {
             if (ls[sidePos.first][sidePos.second] == '#') {
                 d = (d + DIR4.size - 1) % DIR4.size
             }
@@ -58,11 +60,12 @@ fun main() {
             var d = initialDirection
             var nextPos = pos + DIR4[d]
 
-            val newlyVisited: MutableSet<Pair<Pair<Int, Int>, Int>> = mutableSetOf(Pair(pos, d))
-            while (nextPos.first in 0..<n && nextPos.second in 0..<m) {
+            val newlyVisited = mutableSetOf(Pair(pos, d))
+            while (nextPos.first in 0 ..< n && nextPos.second in 0 ..< m) {
                 if (ls[nextPos.first][nextPos.second] == '#') {
                     d = (d + 1) % DIR4.size
-                } else {
+                }
+                else {
                     pos = nextPos
                     val p = Pair(pos, d)
                     if (p in visited || p in newlyVisited)
@@ -81,8 +84,8 @@ fun main() {
         nextPos = pos + DIR4[d]
 
         // Forward
-        val tested: MutableSet<Pair<Int, Int>> = mutableSetOf(pos)
-        while (nextPos.first in 0..<n && nextPos.second in 0..<m) {
+        val tested = mutableSetOf(pos)
+        while (nextPos.first in 0 ..< n && nextPos.second in 0 ..< m) {
             if (ls[nextPos.first][nextPos.second] == '#') {
                 d = (d + 1) % DIR4.size
             }
@@ -104,6 +107,6 @@ fun main() {
         return ans
     }
 
-    println(part1())
-    println(part2())
+    println(measureTimedValue { part1() }.let { "${it.value} (${it.duration})" })
+    println(measureTimedValue { part2() }.let { "${it.value} (${it.duration})" })
 }

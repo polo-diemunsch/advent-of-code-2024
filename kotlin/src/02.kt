@@ -1,3 +1,4 @@
+import kotlin.time.measureTimedValue
 import java.util.LinkedList
 import java.util.Queue
 import kotlin.math.abs
@@ -70,6 +71,6 @@ fun main() {
         return ans
     }
 
-    println(part1())
-    println(part2())
+    println(measureTimedValue { part1() }.let { "${it.value} (${it.duration})" })
+    println(measureTimedValue { part2() }.let { "${it.value} (${it.duration})" })
 }

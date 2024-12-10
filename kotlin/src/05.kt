@@ -1,3 +1,5 @@
+import kotlin.time.measureTimedValue
+
 fun main() {
     val rules = readInput()
         .map { Pair(it.substringBefore('|').toInt(), it.substringAfter('|').toInt()) }
@@ -16,6 +18,6 @@ fun main() {
         return updates.filter { !isSorted(it) }.map { it.sortedWith(comparator) }.sumOf { it[it.size / 2] }
     }
 
-    println(part1())
-    println(part2())
+    println(measureTimedValue { part1() }.let { "${it.value} (${it.duration})" })
+    println(measureTimedValue { part2() }.let { "${it.value} (${it.duration})" })
 }

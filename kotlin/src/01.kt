@@ -1,42 +1,27 @@
+import kotlin.time.measureTimedValue
 import kotlin.math.abs
 
 fun main() {
     val ls = readInput()
 
+    val locationIDsA = mutableListOf<Int>()
+    val locationIDsB = mutableListOf<Int>()
+
+    for (l in ls) {
+        val (a, b) = ints(l)
+        locationIDsA.addLast(a)
+        locationIDsB.addLast(b)
+    }
+
     fun part1(): Int {
-        val a = mutableListOf<Int>()
-        val b = mutableListOf<Int>()
-
-        for (l in ls) {
-            val (c, d) = ints(l)
-            a.addLast(c)
-            b.addLast(d)
-        }
-
-        a.sort()
-        b.sort()
-
-        return a.zip(b) { c, d -> abs(c - d) }.sum()
+        return locationIDsA.sorted().zip(locationIDsB.sorted()) { a, b -> abs(a - b) }.sum()
     }
 
     fun part2(): Int {
-        val a = mutableListOf<Int>()
-        val b = mutableListOf<Int>()
-
-        for (l in ls) {
-            val (c, d) = ints(l)
-            a.addLast(c)
-            b.addLast(d)
-        }
-
-        val bb = mutableMapOf<Int, Int>()
-        for (d in b) {
-            bb[d] = bb.getOrDefault(d, 0) + 1
-        }
-
-        return a.sumOf { c -> c * bb.getOrDefault(c, 0) }
+        val locationIDsBCounter = locationIDsB.counter()
+        return locationIDsA.sumOf { a -> a * locationIDsBCounter.getOrDefault(a, 0) }
     }
 
-    println(part1())
-    println(part2())
+    println(measureTimedValue { part1() }.let { "${it.value} (${it.duration})" })
+    println(measureTimedValue { part2() }.let { "${it.value} (${it.duration})" })
 }

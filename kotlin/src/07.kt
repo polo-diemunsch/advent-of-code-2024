@@ -1,3 +1,4 @@
+import kotlin.time.measureTimedValue
 import kotlin.math.pow
 
 fun main() {
@@ -8,10 +9,10 @@ fun main() {
         var ans: Long = 0
 
         for ((target, numbers) in equations) {
-            var currentNumbers: Set<Long> = setOf(target)
+            var currentNumbers = setOf(target)
             var i = numbers.size - 1
             while (i > 0 && currentNumbers.isNotEmpty()) {
-                val nextCurrentNumbers: MutableSet<Long> = mutableSetOf()
+                val nextCurrentNumbers = mutableSetOf<Long>()
                 for (current in currentNumbers) {
                     if (current - numbers[i] >= 0)
                         nextCurrentNumbers.add(current - numbers[i])
@@ -33,10 +34,10 @@ fun main() {
         var ans: Long = 0
 
         for ((target, numbers) in equations) {
-            var currentNumbers: Set<Long> = setOf(target)
+            var currentNumbers = setOf(target)
             var i = numbers.size - 1
             while (i > 0 && currentNumbers.isNotEmpty()) {
-                val nextCurrentNumbers: MutableSet<Long> = mutableSetOf()
+                val nextCurrentNumbers = mutableSetOf<Long>()
                 for (current in currentNumbers) {
                     if (current - numbers[i] >= 0)
                         nextCurrentNumbers.add(current - numbers[i])
@@ -56,6 +57,6 @@ fun main() {
         return ans
     }
 
-    println(part1())
-    println(part2())
+    println(measureTimedValue { part1() }.let { "${it.value} (${it.duration})" })
+    println(measureTimedValue { part2() }.let { "${it.value} (${it.duration})" })
 }
