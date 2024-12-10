@@ -30,3 +30,10 @@ fun Long.length() = when(this) {
     0L -> 1
     else -> log10(abs(toDouble())).toInt() + 1
 }
+
+fun List<Any>.counter(): Map<Any, Int> {
+    val counter = mutableMapOf<Any, Int>()
+    for (value in this)
+        counter[value] = counter.getOrDefault(value, 0) + 1
+    return counter
+}
