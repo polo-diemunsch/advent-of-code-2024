@@ -7,8 +7,6 @@ s = get_input(DAY)
 
 import collections
 import math
-import sys
-sys.set_int_max_str_digits(20000)
 
 ls = s.splitlines()
 
