@@ -18,7 +18,7 @@ fun main() {
     }
 
     fun part2(): Int {
-        val locationIDsBCounter = locationIDsB.counter()
+        val locationIDsBCounter = locationIDsB.toCounter()
         return locationIDsA.sumOf { a -> a * locationIDsBCounter.getOrDefault(a, 0) }
     }
 
