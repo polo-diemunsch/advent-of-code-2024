@@ -13,13 +13,19 @@ val DIR4 = listOf(Pair(-1, 0), Pair(0, 1), Pair(1, 0), Pair(0, -1)) // Clockwise
 val DIR8 = listOf(Pair(-1, 0), Pair(-1, 1), Pair(0, 1), Pair(1, 1), Pair(1, 0), Pair(1, -1), Pair(0, -1), Pair(-1, -1)) // Clockwise from U
 val DIRX = listOf(Pair(-1, 1), Pair(1, 1), Pair(1, -1), Pair(-1, -1)) // Clockwise from UL
 
-operator fun Pair<Int, Int>.plus(other: Pair<Int, Int>): Pair<Int, Int> {
-    return Pair(this.first + other.first, this.second + other.second)
-}
+inline operator fun <reified T : Number>  Pair<T, T>.plus(other: Pair<T, T>): Pair<T, T> =
+    when (T::class) {
+        Int::class -> Pair((this.first.toInt() + other.first.toInt()) as T, (this.second.toInt() + other.second.toInt()) as T)
+        Long::class -> Pair((this.first.toLong() + other.first.toLong()) as T, (this.second.toLong() + other.second.toLong()) as T)
+        else -> throw IllegalArgumentException("Unsupported type: ${T::class}")
+    }
 
-operator fun Pair<Int, Int>.minus(other: Pair<Int, Int>): Pair<Int, Int> {
-    return Pair(this.first - other.first, this.second - other.second)
-}
+inline operator fun <reified T : Number>  Pair<T, T>.minus(other: Pair<T, T>): Pair<T, T> =
+    when (T::class) {
+        Int::class -> Pair((this.first.toInt() - other.first.toInt()) as T, (this.second.toInt() - other.second.toInt()) as T)
+        Long::class -> Pair((this.first.toLong() - other.first.toLong()) as T, (this.second.toLong() - other.second.toLong()) as T)
+        else -> throw IllegalArgumentException("Unsupported type: ${T::class}")
+    }
 
 fun Int.length() = when(this) {
     0 -> 1
