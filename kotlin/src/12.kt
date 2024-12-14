@@ -74,7 +74,7 @@ fun main() {
                             neighbour.second < 0 || neighbour.second >= m ||
                             ls[neighbour.first][neighbour.second] != ls[current.first][current.second]
                         ) {
-                            when (listOf(DIR4[(k - 1 + DIR4.size) % DIR4.size], DIR4[(k + 1) % DIR4.size]).count { Pair(neighbour + it, dir) in fences }) {
+                            when (listOf(-1, 1).count { Pair(neighbour + DIR4[(k - it).mod(DIR4.size)], dir) in fences }) {
                                 0 -> sides++
                                 2 -> sides--
                             }

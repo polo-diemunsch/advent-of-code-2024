@@ -16,7 +16,7 @@ fun main() {
         val visited = mutableSetOf(pos)
         while (nextPos.first in 0 ..< n && nextPos.second in 0 ..< m) {
             if (ls[nextPos.first][nextPos.second] == '#') {
-                d = (d + 1) % DIR4.size
+                d = (d + 1).mod(DIR4.size)
             }
             else {
                 pos = nextPos
@@ -35,13 +35,13 @@ fun main() {
         var pos = Pair(line, column)
         var d = 0
         var nextPos = pos - DIR4[d]
-        var sidePos = pos + DIR4[(d + DIR4.size - 1) % DIR4.size]
+        var sidePos = pos + DIR4[(d - 1).mod(DIR4.size)]
 
         // Backward
         val visited = mutableSetOf(Pair(pos, d))
         while (nextPos.first in 0 ..< n && nextPos.second in 0 ..< m) {
             if (ls[sidePos.first][sidePos.second] == '#') {
-                d = (d + DIR4.size - 1) % DIR4.size
+                d = (d - 1).mod(DIR4.size)
             }
             else if (ls[nextPos.first][nextPos.second] == '#') {
                 break
@@ -52,7 +52,7 @@ fun main() {
             }
 
             nextPos = pos - DIR4[d]
-            sidePos = pos + DIR4[(d + DIR4.size - 1) % DIR4.size]
+            sidePos = pos + DIR4[(d - 1).mod(DIR4.size)]
         }
 
         fun isInLoop(initialPos: Pair<Int, Int>, initialDirection: Int): Boolean {
@@ -63,7 +63,7 @@ fun main() {
             val newlyVisited = mutableSetOf(Pair(pos, d))
             while (nextPos.first in 0 ..< n && nextPos.second in 0 ..< m) {
                 if (ls[nextPos.first][nextPos.second] == '#') {
-                    d = (d + 1) % DIR4.size
+                    d = (d + 1).mod(DIR4.size)
                 }
                 else {
                     pos = nextPos
@@ -87,7 +87,7 @@ fun main() {
         val tested = mutableSetOf(pos)
         while (nextPos.first in 0 ..< n && nextPos.second in 0 ..< m) {
             if (ls[nextPos.first][nextPos.second] == '#') {
-                d = (d + 1) % DIR4.size
+                d = (d + 1).mod(DIR4.size)
             }
             else {
                 if (nextPos !in tested) {

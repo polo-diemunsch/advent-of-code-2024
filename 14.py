@@ -75,9 +75,9 @@ def part2():
                 max_adjacent = count
 
         if max_adjacent > 100:
-            grid = [[" " for _ in range(m)] for __ in range(n)]
+            grid = [[" " for _ in range(n)] for __ in range(m)]
             for z, t in unique_positions:
-                grid[z][t] = "#"
+                grid[t][z] = "#"
 
             for line in grid:
                 print(*line, sep="")

@@ -6,7 +6,7 @@ fun main() {
         .toSet()
     val updates = readInput().map { it.split(',').map { it.toInt() } }
 
-    val comparator = Comparator { a: Int, b: Int -> (Pair(a, b) in rules).compareTo(false) - (Pair(b, a) in rules).compareTo(false) }
+    val comparator = Comparator { a: Int, b: Int -> (Pair(a, b) in rules).toInt() - (Pair(b, a) in rules).toInt() }
 
     fun isSorted(update: List<Int>) = update.zipWithNext { a, b -> comparator.compare(a, b) }.all { it >= 0 }
 

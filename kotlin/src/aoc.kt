@@ -32,10 +32,17 @@ fun Int.length() = when(this) {
     else -> log10(abs(toDouble())).toInt() + 1
 }
 
+fun Int.pow(n: Int, mod: Int = Int.MAX_VALUE) = when(n) {
+    0 -> 1 % mod
+    else -> (0 ..< n).fold(1) { acc, _ -> (acc * this) % mod }
+}
+
 fun Long.length() = when(this) {
     0L -> 1
     else -> log10(abs(toDouble())).toInt() + 1
 }
+
+fun Boolean.toInt() = this.compareTo(false)
 
 fun <T> MutableMap<T, Int>.add(key: T, value: Int) {
     this[key] = this.getOrDefault(key, 0) + value
