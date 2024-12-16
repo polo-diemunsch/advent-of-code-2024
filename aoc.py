@@ -56,6 +56,13 @@ def submit(day, answer, level=1, skip_confirm=False):
 def ints(s):
     return list(map(int, s.split()))
 
+def find_pos(grid, char):
+    for i in range(len(grid)):
+        for j in range(len(grid[i])):
+            if grid[i][j] == char:
+                return i, j
+    return -1, -1
+
 DIR4 = ((-1, 0), (0, 1), (1, 0), (0, -1)) # Clockwise URDL
 DIR8 = ((-1,0), (-1,1), (0,1), (1,1), (1,0), (1,-1), (0,-1), (-1,-1)) # Clockwise from U
 
