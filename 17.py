@@ -10,18 +10,17 @@ import math
 
 ls = s.splitlines()
 
-a = int(ls[0].split(": ")[1])
-ops = list(map(int, ls[4].split(": ")[1].split(",")))
+instructions = list(map(int, ls[4].split(": ")[1].split(",")))
 
 
-def run_program(a, ops):
+def run_program(a):
     b = 0
     c = 0
 
     i = 0
-    while i < len(ops):
-        opcode = ops[i]
-        operand = ops[i + 1]
+    while i < len(instructions):
+        opcode = instructions[i]
+        operand = instructions[i + 1]
 
         combo_operand = operand
         if combo_operand == 4:
@@ -58,20 +57,23 @@ def run_program(a, ops):
 
 
 def part1():
-    return ",".join(map(str, run_program(a, ops)))
+    a = int(ls[0].split(": ")[1])
+    return ",".join(map(str, run_program(a)))
 
 
-def part2():
-    ans = 0
+def part2(a=0, i=len(instructions)-1):
+    if i < 0:
+        return a
 
-    i = len(ops) - 1
-    while i >= 0:
-        ans *= 8
-        while next(run_program(ans, ops)) != ops[i]:
-            ans += 1
-        i -= 1
+    current_a = a * 8
+    for j in range(8):
+        program_output = run_program(current_a + j)
+        if all(instructions[i] == next(program_output) for i in range(i, len(instructions))):
+            ans = part2(current_a + j, i - 1)
+            if ans > 0:
+                return ans
 
-    return ans
+    return -1
 
 # submit(DAY, part1(), 1)
 # submit(DAY, part2(), 2)

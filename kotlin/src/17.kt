@@ -42,16 +42,21 @@ fun main() {
         return runProgram(a).joinToString(",")
     }
 
-    fun part2(): Long {
-        var ans = 0L
+    fun part2(a: Long = 0L, i: Int = instructions.lastIndex): Long {
+        if (i < 0)
+            return a
 
-        for (i in instructions.lastIndex downTo 0) {
-            ans *= 8
-            while (runProgram(ans).first() != instructions[i])
-                ans++
+        val currentA = a * 8
+        for (j in 0 ..< 8) {
+            val programOutput = runProgram(currentA + j).iterator()
+            if ((i .. instructions.lastIndex).all { instructions[it] == programOutput.next() }) {
+                val ans = part2(currentA + j, i - 1)
+                if (ans > 0)
+                    return ans
+            }
         }
 
-        return ans
+        return -1
     }
 
     println(measureTimedValue { part1() }.let { "${it.value} (${it.duration})" })
