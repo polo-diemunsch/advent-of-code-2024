@@ -56,8 +56,11 @@ def part1():
 
 
 def part2():
+    length = 0
     l = next(ls)
     while l != "":
+        if l[0] == "x":
+            length += 1
         l = next(ls)
     l = next(ls)
 
@@ -74,7 +77,8 @@ def part2():
         ans.append(gates["x00"]["XOR"])
 
     carry = gates["x00"]["AND"]
-    for i in range(1, 45):
+    i = 1
+    while i < length:
         x = f"x{i:02}"
         xor1 = gates[x]["XOR"]
         and1 = gates[x]["AND"]
@@ -103,6 +107,10 @@ def part2():
             ans.append(and2)
 
         carry = gates[and1]["OR"] if is_and1_good else gates[and2]["OR"]
+        i += 1
+
+    if carry != f"z{i:02}":
+        ans.append(carry)
 
     return ",".join(sorted(ans))
 
